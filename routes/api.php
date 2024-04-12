@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\UserRegistered;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\MeController;
