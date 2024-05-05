@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ResgisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -22,6 +23,7 @@ class RegisterController extends Controller
 
         $user = User::query()->create([
             ...$input,
+            'token' => Str::uuid(),
             'password' => bcrypt($input['password'])
         ]);
 
