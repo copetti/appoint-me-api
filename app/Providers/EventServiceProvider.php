@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ForgotPasswordRequested;
 use App\Events\UserRegistered;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
+use App\Listeners\SendForgotPasswordToken;
 use App\Listeners\SendWelcomeEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -19,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         UserRegistered::class => [
             SendWelcomeEmail::class
+        ],
+        ForgotPasswordRequested::class => [
+            SendForgotPasswordToken::class
         ]
     ];
 
