@@ -17,4 +17,8 @@ Route::post('reset-password', ResetPasswordController::class);
 
 Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('me', [MeController::class, 'show']);
+    //routes that needs a team
+    Route::middleware(['team'])->group(function (){
+
+    });
 });

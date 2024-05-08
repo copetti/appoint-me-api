@@ -7,6 +7,7 @@ use App\Exceptions\UserHasBeenTakenException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ResgisterRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Str;
 
@@ -26,6 +27,18 @@ class RegisterController extends Controller
             'token' => Str::uuid(),
             'password' => bcrypt($input['password'])
         ]);
+
+        $team = Team::query()->create([
+            'token' => Str::uuid(),
+            'name' => $input['first_name']. " Team"
+        ]);
+
+        setPermissionsTeamId($team->id);
+
+        $user->assignRole('admin');
+
+        $user->default_team_id = $team->id;
+        $user->save();
 
         UserRegistered::dispatch($user);
 
